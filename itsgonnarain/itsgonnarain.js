@@ -1,6 +1,6 @@
 let audioContext = new AudioContext();
 
-function startLoop(audioBuffer, pan = 0) {
+function startLoop(audioBuffer, pan = 0, rate = 1) {
   let sourceNode = audioContext.createBufferSource();
   let pannerNode = audioContext.createStereoPanner();
 
@@ -8,6 +8,7 @@ function startLoop(audioBuffer, pan = 0) {
   sourceNode.loop = true;
   sourceNode.loopStart = 2.8;
   sourceNode.loopEnd = 3.6;
+  sourceNode.playbackRate.value = rate;
   pannerNode.pan.value = pan;
 
   sourceNode.connect(pannerNode);
@@ -22,7 +23,7 @@ fetch("itsgonnarain.wav")
   .then((audioBuffer) => {
     $("#start").click(function () {
       startLoop(audioBuffer, -1);
-      startLoop(audioBuffer, 1);
+      startLoop(audioBuffer, 1, 1.002);
     });
   })
   .catch((e) => console.error(e));
