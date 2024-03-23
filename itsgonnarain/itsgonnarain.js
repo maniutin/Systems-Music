@@ -12,7 +12,7 @@ function startLoop(audioBuffer, pan = 0, rate = 1) {
   pannerNode.pan.value = pan;
 
   sourceNode.connect(pannerNode);
-  sourceNode.connect(audioContext.destination);
+  pannerNode.connect(audioContext.destination);
 
   sourceNode.start(0, 3);
 }
