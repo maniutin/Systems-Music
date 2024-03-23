@@ -10,6 +10,7 @@ function startLoop(audioBuffer, pan = 0, rate = 1) {
   sourceNode.loopEnd = 3.6;
   sourceNode.playbackRate.value = rate;
   pannerNode.pan.value = pan;
+  // pannerNode.pan.linearRampToValueAtTime(1.0, audioContext.currentTime + 2);
 
   sourceNode.connect(pannerNode);
   pannerNode.connect(audioContext.destination);
