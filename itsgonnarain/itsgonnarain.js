@@ -6,6 +6,9 @@ fetch("itsgonnarain.wav")
   .then((audioBuffer) => {
     let sourceNode = audioContext.createBufferSource();
     sourceNode.buffer = audioBuffer;
+    sourceNode.loop = true;
+    sourceNode.loopStart = 2.8;
+    sourceNode.loopEnd = 3.6;
     sourceNode.connect(audioContext.destination);
     $("#start").click(function () {
       sourceNode.start(0, 3);
