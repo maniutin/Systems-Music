@@ -63,6 +63,25 @@ const SAMPLE_LIBRARY = {
   ],
 };
 
+const OCTAVE = [
+  "C",
+  "C#",
+  "D",
+  "D#",
+  "E",
+  "F",
+  "F#",
+  "G",
+  "G#",
+  "A",
+  "A#",
+  "B",
+];
+
+function noteValue(note, octave) {
+  return octave * 12 + OCTAVE.indexOf(note);
+}
+
 function flatToSharp(note) {
   switch (note) {
     case "Bb":
