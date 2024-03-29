@@ -158,6 +158,7 @@ function playSample(instrument, note) {
     bufferSource.start();
   });
 }
+
 setTimeout(() => playSample("Grand Piano", "F4"), 1000);
 setTimeout(() => playSample("Grand Piano", "Ab4"), 2000);
 setTimeout(() => playSample("Grand Piano", "C5"), 3000);
