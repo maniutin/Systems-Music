@@ -147,7 +147,7 @@ function getSample(instrument, noteAndOctave) {
   }));
 }
 
-function playSample(instrument, note) {
+function playSample(instrument, note, delaySeconds = 0) {
   getSample(instrument, note).then(({ audioBuffer, distance }) => {
     let playbackRate = Math.pow(2, distance / 12);
     let bufferSource = audioContext.createBufferSource();
@@ -155,14 +155,16 @@ function playSample(instrument, note) {
     bufferSource.buffer = audioBuffer;
     bufferSource.playbackRate.value = playbackRate;
     bufferSource.connect(audioContext.destination);
-    bufferSource.start();
+    bufferSource.start(audioContext.currentTime + delaySeconds);
   });
 }
 
-setTimeout(() => playSample("Grand Piano", "F4"), 1000);
-setTimeout(() => playSample("Grand Piano", "Ab4"), 2000);
-setTimeout(() => playSample("Grand Piano", "C5"), 3000);
-setTimeout(() => playSample("Grand Piano", "Db5"), 4000);
-setTimeout(() => playSample("Grand Piano", "Eb5"), 5000);
-setTimeout(() => playSample("Grand Piano", "F5"), 6000);
-setTimeout(() => playSample("Grand Piano", "Ab5"), 7000);
+function startLoop(instrument, note, loopLengthSeconds, delaySeconds) {
+  playSample(instrument, note, delaySeconds);
+  setInterval(
+    () => playSample(instrument, note, delaySeconds),
+    loopLengthSeconds * 1000
+  );
+}
+
+startLoop("Grand Piano", "C4", 20, 5);
