@@ -153,7 +153,7 @@ function playSample(instrument, note, destination, delaySeconds = 0) {
     let bufferSource = audioContext.createBufferSource();
 
     bufferSource.buffer = audioBuffer;
-    bufferSource.playbackRate.value = playbackRate;
+    bufferSource.playbackRate.value = playbackRate; // / 3; add for much lower pitch
 
     bufferSource.connect(destination);
     bufferSource.start(audioContext.currentTime + delaySeconds);
