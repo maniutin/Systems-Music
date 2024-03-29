@@ -91,7 +91,7 @@ function noteValue(note, octave) {
 }
 
 function getNoteDistance(note1, octave1, note2, octave2) {
-  return noteValue(note1, octave1) - noteValue(note2 - octave2);
+  return noteValue(note1, octave1) - noteValue(note2, octave2);
 }
 
 function getNearestSample(sampleBank, note, octave) {
@@ -126,7 +126,7 @@ function flatToSharp(note) {
 }
 
 function getSample(instrument, noteAndOctave) {
-  let [, requestedNote, requestedOctave] = /^(\w[b#]?)(\d)$/.exec(
+  let [, requestedNote, requestedOctave] = /^(\w[b\#]?)(\d)$/.exec(
     noteAndOctave
   );
   requestedOctave = parseInt(requestedOctave, 10);
