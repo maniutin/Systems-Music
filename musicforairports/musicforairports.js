@@ -147,24 +147,37 @@ function getSample(instrument, noteAndOctave) {
   }));
 }
 
-function playSample(instrument, note, delaySeconds = 0) {
+function playSample(instrument, note, destination, delaySeconds = 0) {
   getSample(instrument, note).then(({ audioBuffer, distance }) => {
     let playbackRate = Math.pow(2, distance / 12);
     let bufferSource = audioContext.createBufferSource();
 
     bufferSource.buffer = audioBuffer;
     bufferSource.playbackRate.value = playbackRate;
-    bufferSource.connect(audioContext.destination);
+
+    bufferSource.connect(destination);
     bufferSource.start(audioContext.currentTime + delaySeconds);
   });
 }
 
-function startLoop(instrument, note, loopLengthSeconds, delaySeconds) {
-  playSample(instrument, note, delaySeconds);
+function startLoop(
+  instrument,
+  note,
+  destination,
+  loopLengthSeconds,
+  delaySeconds
+) {
+  playSample(instrument, note, destination, delaySeconds);
   setInterval(
-    () => playSample(instrument, note, delaySeconds),
+    () => playSample(instrument, note, destination, delaySeconds),
     loopLengthSeconds * 1000
   );
 }
 
-startLoop("Grand Piano", "C4", 20, 5);
+fetchSample("AirportTerminal.wav").then((convolverBuffer) => {
+  let convolver = audioContext.createConvolver();
+  convolver.buffer = convolverBuffer;
+  convolver.connect(audioContext.destination);
+
+  startLoop("Grand Piano", "C4", convolver, 20, 5);
+});
