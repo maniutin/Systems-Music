@@ -3,62 +3,62 @@ const SAMPLE_LIBRARY = {
     {
       note: "A",
       octave: 4,
-      file: "/Users/maniutin/Desktop/Me Making Music/Samples/Orchestral/Sonatina Symphonic Orchestra Samples/Grand Piano/piano-f-a4.wav",
+      file: "Samples/Grand Piano/piano-f-a4.wav",
     },
     {
       note: "A",
       octave: 5,
-      file: "/Users/maniutin/Desktop/Me Making Music/Samples/Orchestral/Sonatina Symphonic Orchestra Samples/Grand Piano/piano-f-a5.wav",
+      file: "Samples/Grand Piano/piano-f-a5.wav",
     },
     {
       note: "A",
       octave: 6,
-      file: "/Users/maniutin/Desktop/Me Making Music/Samples/Orchestral/Sonatina Symphonic Orchestra Samples/Grand Piano/piano-f-a6.wav",
+      file: "Samples/Grand Piano/piano-f-a6.wav",
     },
     {
       note: "C",
       octave: 4,
-      file: "/Users/maniutin/Desktop/Me Making Music/Samples/Orchestral/Sonatina Symphonic Orchestra Samples/Grand Piano/piano-f-c4.wav",
+      file: "Samples/Grand Piano/piano-f-c4.wav",
     },
     {
       note: "C",
       octave: 5,
-      file: "/Users/maniutin/Desktop/Me Making Music/Samples/Orchestral/Sonatina Symphonic Orchestra Samples/Grand Piano/piano-f-c5.wav",
+      file: "Samples/Grand Piano/piano-f-c5.wav",
     },
     {
       note: "C",
       octave: 6,
-      file: "/Users/maniutin/Desktop/Me Making Music/Samples/Orchestral/Sonatina Symphonic Orchestra Samples/Grand Piano/piano-f-c6.wav",
+      file: "Samples/Grand Piano/piano-f-c6.wav",
     },
     {
       note: "D#",
       octave: 4,
-      file: "/Users/maniutin/Desktop/Me Making Music/Samples/Orchestral/Sonatina Symphonic Orchestra Samples/Grand Piano/piano-f-d#4.wav",
+      file: "Samples/Grand Piano/piano-f-d#4.wav",
     },
     {
       note: "D#",
       octave: 5,
-      file: "/Users/maniutin/Desktop/Me Making Music/Samples/Orchestral/Sonatina Symphonic Orchestra Samples/Grand Piano/piano-f-d#5.wav",
+      file: "Samples/Grand Piano/piano-f-d#5.wav",
     },
     {
       note: "D#",
       octave: 6,
-      file: "/Users/maniutin/Desktop/Me Making Music/Samples/Orchestral/Sonatina Symphonic Orchestra Samples/Grand Piano/piano-f-d#6.wav",
+      file: "Samples/Grand Piano/piano-f-d#6.wav",
     },
     {
       note: "F#",
       octave: 4,
-      file: "/Users/maniutin/Desktop/Me Making Music/Samples/Orchestral/Sonatina Symphonic Orchestra Samples/Grand Piano/piano-f-f#4.wav",
+      file: "Samples/Grand Piano/piano-f-f#4.wav",
     },
     {
       note: "F#",
       octave: 5,
-      file: "/Users/maniutin/Desktop/Me Making Music/Samples/Orchestral/Sonatina Symphonic Orchestra Samples/Grand Piano/piano-f-f#5.wav",
+      file: "Samples/Grand Piano/piano-f-f#5.wav",
     },
     {
       note: "F#",
       octave: 6,
-      file: "/Users/maniutin/Desktop/Me Making Music/Samples/Orchestral/Sonatina Symphonic Orchestra Samples/Grand Piano/piano-f-f#6.wav",
+      file: "Samples/Grand Piano/piano-f-f#6.wav",
     },
   ],
 };
@@ -77,6 +77,14 @@ const OCTAVE = [
   "A#",
   "B",
 ];
+
+let audioContext = new AudioContext();
+
+function fetchSample(path) {
+  return fetch(encodeURIComponent(path))
+    .then((response) => response.arrayBuffer())
+    .then((arrayBuffer) => audioContext.decodeAudioData(arrayBuffer));
+}
 
 function noteValue(note, octave) {
   return octave * 12 + OCTAVE.indexOf(note);
@@ -139,14 +147,6 @@ function getSample(instrument, noteAndOctave) {
   }));
 }
 
-let audioContext = new AudioContext();
-
-function fetchSample(path) {
-  return fetch(encodeURIComponent(path))
-    .then((response) => response.arrayBuffer())
-    .then((arrayBuffer) => audioContext.decodeAudioData(arrayBuffer));
-}
-
 function playSample(instrument, note) {
   getSample(instrument, note).then(({ audioBuffer, distance }) => {
     let playbackRate = Math.pow(2, distance / 12);
@@ -158,3 +158,10 @@ function playSample(instrument, note) {
     bufferSource.start();
   });
 }
+setTimeout(() => playSample("Grand Piano", "F4"), 1000);
+setTimeout(() => playSample("Grand Piano", "Ab4"), 2000);
+setTimeout(() => playSample("Grand Piano", "C5"), 3000);
+setTimeout(() => playSample("Grand Piano", "Db5"), 4000);
+setTimeout(() => playSample("Grand Piano", "Eb5"), 5000);
+setTimeout(() => playSample("Grand Piano", "F5"), 6000);
+setTimeout(() => playSample("Grand Piano", "Ab5"), 7000);
