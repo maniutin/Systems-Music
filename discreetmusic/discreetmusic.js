@@ -1,3 +1,4 @@
+Tone.Transport.bpm.value = 240;
 let envelope = {
   attack: 0.1,
   release: 4,
@@ -30,7 +31,7 @@ let synth = new Tone.DuoSynth({
 synth.toMaster();
 
 new Tone.Loop((time) => {
-  synth.triggerAttackRelease("C4", 1, time);
+  synth.triggerAttackRelease("C4", "8n", "+4n");
 }, "1m").start();
 
 Tone.Transport.start();
