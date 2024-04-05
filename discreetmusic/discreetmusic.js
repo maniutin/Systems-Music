@@ -24,6 +24,8 @@ let synth = new Tone.DuoSynth({
     envelope,
     filterEnvelope,
   },
+  vibratoRate: 0.5,
+  vibratoAmount: 0.1,
 });
 synth.toMaster();
 synth.triggerAttackRelease("C4", 1);
