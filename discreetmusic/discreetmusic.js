@@ -3,6 +3,8 @@ let synth = new Tone.MonoSynth({
   filterEnvelope: {
     baseFrequency: 200,
     octaves: 2,
+    attack: 0,
+    decay: 0,
   },
 });
 synth.toMaster();
